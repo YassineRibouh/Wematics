@@ -1,0 +1,8 @@
+fastapi==0.115.8
+uvicorn[standard]==0.35.0
+sqlalchemy==2.0.46
+pydantic-settings==2.8.1
+python-dateutil==2.9.0.post0
+wematics>=0.1.0
+pytest==8.3.5
+httpx==0.28.1

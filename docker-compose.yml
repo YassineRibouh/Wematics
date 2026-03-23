@@ -1,0 +1,46 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: wematics-backend
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///./data/wematics.db}
+      - ARCHIVE_BASE_PATH=/app/downloads
+      - MIGRATIONS_PATH=/app/migrations
+    volumes:
+      - ./downloads:/app/downloads
+      - backend_data:/app/data
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: /api
+    container_name: wematics-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: wematics-postgres
+    profiles: ["postgres"]
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-wematics}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-change-me}
+      - POSTGRES_DB=${POSTGRES_DB:-wematics}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  backend_data:
+  postgres_data:
