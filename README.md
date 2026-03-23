@@ -1,4 +1,5 @@
 # Wematics Archive Dashboard
+## Helios 2 Bielefeld University of Applied Sciences / Rosenheim University of Applied Sciences
 
 Full-stack dashboard for collecting Wematics sky camera data, indexing local and FTP archives, comparing sources, and running background download, upload, transfer, verify, and inventory jobs.
 
